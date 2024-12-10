@@ -73,11 +73,13 @@ const Services: React.FC = () => {
           service,
           {
             opacity: 0,
-            rotateY: 90,
+            y: 50,
+            scale: 0.9,
           },
           {
             opacity: 1,
-            rotateY: 0,
+            y: 0,
+            scale: 1,
             duration: 1.5,
             ease: "power2.out",
             scrollTrigger: {
@@ -94,9 +96,8 @@ const Services: React.FC = () => {
 
   return (
     <div
-      className="bg-white text-white min-h-screen px-6 py-16"
+      className="bg-[#fdfcf3] text-white min-h-screen px-6 py-16"
       style={{
-        backgroundImage: "url('https://source.unsplash.com/1600x900/?abstract')",
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
@@ -109,7 +110,8 @@ const Services: React.FC = () => {
           fontSize: "3rem",
           fontWeight: "bold",
           textTransform: "uppercase",
-        }}
+          background: "black",
+          WebkitBackgroundClip: "text",        }}
       >
         Services
       </h2>
@@ -120,10 +122,10 @@ const Services: React.FC = () => {
           <div
             key={service.id}
             ref={(el) => (serviceRefs.current[index] = el!)}
-            className="bg-black p-6 rounded-lg shadow-lg transform transition-all duration-300 hover:scale-105"
+            className="bg-gradient-to-r from-[#486d5b] to-[#2A463A] p-6 rounded-lg shadow-lg transform transition-all duration-300 hover:scale-105 hover:shadow-2xl"
           >
             <h3
-              className="text-xl font-bold mb-4"
+              className="text-xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-[#ffffff] to-[#cfe8d7]"
               style={{
                 fontFamily: "'Roboto Slab', serif",
                 textTransform: "uppercase",
@@ -131,9 +133,14 @@ const Services: React.FC = () => {
             >
               {service.title}
             </h3>
-            <ul className="text-sm text-gray-400 space-y-2 flex flex-col items-center">
+            <ul className="text-sm text-gray-300 space-y-2 flex flex-col items-center">
               {service.details.map((detail, idx) => (
-                <li key={idx}>• {detail}</li>
+                <li
+                  key={idx}
+                  className="hover:text-white transition-colors duration-200"
+                >
+                  • {detail}
+                </li>
               ))}
             </ul>
           </div>

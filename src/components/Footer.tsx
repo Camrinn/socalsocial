@@ -4,7 +4,7 @@ const Footer = () => (
   <footer
     className="text-white text-center p-6 relative"
     style={{
-      backgroundImage: "url('/assets/blackbg.jpg')", // Update the path to your actual image
+      backgroundImage: "url('/assets/wall1.jpg')", // Update the path to your actual image
       backgroundSize: "cover",
       backgroundRepeat: "no-repeat",
       backgroundPosition: "center",

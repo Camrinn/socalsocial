@@ -10,11 +10,26 @@ gsap.registerPlugin(ScrollTrigger);
 
 const HomePage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const [isMobile, setIsMobile] = useState(false); // State to detect screen size
 
   const heroRef = useRef<HTMLDivElement>(null);
   const heading1Ref = useRef<HTMLDivElement>(null);
   const heading2Ref = useRef<HTMLDivElement>(null);
   const aboutUsRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Detect if the screen size is mobile
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768); // Adjust breakpoint as needed
+    };
+    handleResize(); // Initial check
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup resize event listener
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     // Simulate loading delay (2 seconds)
@@ -71,10 +86,12 @@ const HomePage: React.FC = () => {
       ) : (
         <div
           style={{
-            backgroundImage: "url('assets/wall2.jpg')",
+            backgroundImage: isMobile
+              ? "url('assets/wall3.jpg')" // Mobile background
+              : "url('assets/wall2.jpg')", // Desktop background
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
-            backgroundAttachment: "fixed",
+            backgroundAttachment: isMobile ? "fixed" : "fixed", // Disable fixed for mobile
           }}
           className="bg-black text-white min-h-screen"
         >
@@ -153,8 +170,8 @@ const HomePage: React.FC = () => {
             </div>
           </section>
           <AboutUs />
-          <Services />
           <Companies />
+          <Services />
         </div>
       )}
     </>
