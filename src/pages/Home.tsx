@@ -81,15 +81,17 @@ const HomePage: React.FC = () => {
         <LoadingAnimation />
       ) : (
         <div
+          ref={heroRef}
           style={{
-            backgroundImage: isMobile
-              ? "url('assets/wall3.jpg')" // Mobile background
-              : "url('assets/wall2.jpg')", // Desktop background
-            backgroundSize: "cover",
+            backgroundImage: `url('assets/${
+              isMobile ? "wall3.jpg" : "wall2.jpg"
+            }')`,
+            backgroundSize: isMobile ? "contain" : "cover",
             backgroundRepeat: "no-repeat",
-            backgroundAttachment: isMobile ? "scroll" : "fixed", // Disable fixed for mobile
+            backgroundPosition: isMobile ? "top" : "center",
+            backgroundAttachment: isMobile ? "scroll" : "fixed",
           }}
-          className="bg-black text-white min-h-screen"
+          className="min-h-screen bg-white text-white"
         >
           {/* Ensure no white space at the top */}
           <style>
