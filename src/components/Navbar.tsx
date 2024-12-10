@@ -32,7 +32,7 @@ const Navbar: React.FC = () => {
 
       {/* Center - Logo */}
       <div
-        className="text-white text-lg font-semibold tracking-wide"
+        className="text-white text-lg ml-7 justify-center text-center font-semibold tracking-wide"
         style={{ fontFamily: "'Playfair Display', serif" }}
       >
         SoCal SoCial

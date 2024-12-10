@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -65,6 +65,21 @@ const services = [
 
 const Services: React.FC = () => {
   const serviceRefs = useRef<HTMLDivElement[]>([]);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    // Detect if the screen size is mobile
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768); // Adjust breakpoint as needed
+    };
+    handleResize(); // Initial check
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup resize event listener
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     if (serviceRefs.current) {
@@ -74,12 +89,10 @@ const Services: React.FC = () => {
           {
             opacity: 0,
             y: 50,
-            scale: 0.9,
           },
           {
             opacity: 1,
             y: 0,
-            scale: 1,
             duration: 1.5,
             ease: "power2.out",
             scrollTrigger: {
@@ -98,34 +111,39 @@ const Services: React.FC = () => {
     <div
       className="bg-[#fdfcf3] text-white min-h-screen px-6 py-16"
       style={{
+        backgroundImage: `url('assets/${
+          isMobile ? "wall1.jpg" : "wall2.jpg"
+        }')`,
         backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
+        backgroundAttachment: isMobile ? "scroll" : "fixed",
+
       }}
     >
       {/* Heading */}
       <h2
-        className="text-center text-black mb-16"
+        className="text-center text-white mb-16"
         style={{
           fontFamily: "'Playfair Display', serif",
           fontSize: "3rem",
           fontWeight: "bold",
           textTransform: "uppercase",
-          background: "black",
-          WebkitBackgroundClip: "text",        }}
+        }}
       >
         Services
       </h2>
 
-      {/* Service Boxes */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-screen-lg mx-auto">
+      {/* Service Text */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-screen-lg mx-auto text-center">
         {services.map((service, index) => (
           <div
             key={service.id}
             ref={(el) => (serviceRefs.current[index] = el!)}
-            className="bg-gradient-to-r from-[#486d5b] to-[#2A463A] p-6 rounded-lg shadow-lg transform transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+            className="space-y-4"
           >
             <h3
-              className="text-xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-[#ffffff] to-[#cfe8d7]"
+              className="text-2xl font-bold text-white"
               style={{
                 fontFamily: "'Roboto Slab', serif",
                 textTransform: "uppercase",
@@ -133,14 +151,9 @@ const Services: React.FC = () => {
             >
               {service.title}
             </h3>
-            <ul className="text-sm text-gray-300 space-y-2 flex flex-col items-center">
+            <ul className="text-lg text-white">
               {service.details.map((detail, idx) => (
-                <li
-                  key={idx}
-                  className="hover:text-white transition-colors duration-200"
-                >
-                  • {detail}
-                </li>
+                <li key={idx}>• {detail}</li>
               ))}
             </ul>
           </div>

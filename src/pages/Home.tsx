@@ -57,15 +57,15 @@ const HomePage: React.FC = () => {
       if (aboutUsRef.current) {
         gsap.fromTo(
           aboutUsRef.current,
-          { scale: 1, opacity: 1 },
+          { scale: 1, opacity: 1 }, // Initial state
           {
-            scale: 2,
-            opacity: 0,
+            scale: 1, // Keeping the scale consistent
+            opacity: 1, // Keeping the opacity at full
             scrollTrigger: {
-              trigger: heroRef.current,
-              start: "bottom center", // Start animation when the bottom of the hero section is in the center
-              end: "bottom top", // End animation when the bottom of the hero section is at the top
-              scrub: true, // Smooth transition based on scrolling
+              trigger: aboutUsRef.current, // Trigger the animation on the 'About Us' section
+              start: "top center", // Start when the top of the section reaches the center of the viewport
+              end: "bottom center", // End when the bottom of the section reaches the center
+              scrub: true, // Smoothly interpolate the animation
             },
           }
         );
@@ -87,7 +87,7 @@ const HomePage: React.FC = () => {
               isMobile ? "wall3.jpg" : "wall2.jpg"
             }')`,
             backgroundSize: isMobile ? "contain" : "cover",
-            backgroundRepeat: "no-repeat",
+            backgroundRepeat: "repeat",
             backgroundPosition: isMobile ? "top" : "center",
             backgroundAttachment: isMobile ? "scroll" : "fixed",
           }}
@@ -109,6 +109,22 @@ const HomePage: React.FC = () => {
             ref={heroRef}
             className="relative min-h-screen flex flex-col justify-center items-center px-6"
           >
+             {/* Logo */}
+             <div
+              style={{
+                marginBottom: "1rem",
+                textAlign: "center",
+              }}
+            >
+              <img
+                src="assets/logo2.png" // Replace with the correct logo path
+                alt="SoCal Social Logo"
+                style={{
+                  width: isMobile ? "150px" : "150px", // Adjust size for mobile and desktop
+                  height: "auto",
+                }}
+              />
+            </div>
             {/* Heading 1 */}
             <div
               ref={heading1Ref}
@@ -145,7 +161,7 @@ const HomePage: React.FC = () => {
               ref={aboutUsRef}
               style={{
                 position: "absolute",
-                bottom: "5%",
+                bottom: "10%",
                 textAlign: "center",
                 fontSize: "1.5rem",
                 fontFamily: "'Roboto Slab', serif",
