@@ -44,18 +44,14 @@ const HomePage: React.FC = () => {
           heading1Ref.current,
           { opacity: 0 },
           { opacity: 1, duration: 1, ease: "power2.inOut" }
-        )
-          .to(heading1Ref.current, { opacity: 0, duration: 1, ease: "power2.inOut" })
-          .to(heading1Ref.current, { opacity: 1, duration: 1, ease: "power2.inOut" });
+        );
 
         tl.fromTo(
           heading2Ref.current,
           { opacity: 0 },
           { opacity: 1, duration: 1, ease: "power2.inOut" },
           "<" // Synchronized animation
-        )
-          .to(heading2Ref.current, { opacity: 0, duration: 1, ease: "power2.inOut" })
-          .to(heading2Ref.current, { opacity: 1, duration: 1, ease: "power2.inOut" });
+        );
       }
 
       if (aboutUsRef.current) {
@@ -91,7 +87,7 @@ const HomePage: React.FC = () => {
               : "url('assets/wall2.jpg')", // Desktop background
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
-            backgroundAttachment: isMobile ? "fixed" : "fixed", // Disable fixed for mobile
+            backgroundAttachment: isMobile ? "scroll" : "fixed", // Disable fixed for mobile
           }}
           className="bg-black text-white min-h-screen"
         >
